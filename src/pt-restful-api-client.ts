@@ -53,8 +53,7 @@ export default class PTRESTfulAPIClient {
     // GETメソッドで取得
     async getData(
         url: string,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        params: Record<string,any> = {},
+        params: Record<string,string|number> = {},
         token: string | null = null
     ): Promise<Response> {
         let setting: Record<string,unknown> = {};
@@ -68,7 +67,7 @@ export default class PTRESTfulAPIClient {
 
         let queryString = '';
         if (Object.keys(params).length) {
-            const paramsString: string = new URLSearchParams(params).toString();
+            const paramsString: string = new URLSearchParams(params as Record<string,string>).toString();
             if (paramsString) {
                 queryString = '?' + paramsString;
             }
@@ -87,7 +86,7 @@ export default class PTRESTfulAPIClient {
      * @param {string} endpoint エンドポイントのパス
      * @param {string} method リクエストメソッド
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,any>} params パラメーター
+     * @param {Record<string,string|number>} params パラメーター
      * @param {Record<string,unknown>} data リクエストボディ
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
@@ -96,8 +95,7 @@ export default class PTRESTfulAPIClient {
         endpoint: string,
         method: RequestMethods,
         workspaceId: number | null = 0,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        params: Record<string,any> = {},
+        params: Record<string,string|number> = {},
         data: Record<string,unknown> = {},
         token: string | null = null
     ): Promise<Response> {
@@ -146,15 +144,14 @@ export default class PTRESTfulAPIClient {
      * オブジェクト一覧の取得
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,any>} params パラメーター
+     * @param {Record<string,string|number>} params パラメーター
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
     async listObjects(
         model: string,
         workspaceId = 0,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        params: Record<string,any> = {},
+        params: Record<string,string|number> = {},
         token: string | null = null
     ): Promise<Response> {
         if (!model) {
@@ -179,8 +176,7 @@ export default class PTRESTfulAPIClient {
         id: number | string | null,
         workspaceId = 0,
         token: string,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        params: Record<string,any> = {},
+        params: Record<string,string|number> = {},
         data: Record<string,unknown> = {},
         method: RequestMethods | null = null
     ): Promise<Response> {
@@ -249,7 +245,7 @@ export default class PTRESTfulAPIClient {
      * @param {string} model モデル
      * @param {number | string | null} id オブジェクトID（またはプライマリカラムの値）
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,any>} params パラメーター
+     * @param {Record<string,string|number>} params パラメーター
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
@@ -257,8 +253,7 @@ export default class PTRESTfulAPIClient {
         model: string,
         id: number | string | null,
         workspaceId = 0,
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        params: Record<string,any> = {},
+        params: Record<string,string|number> = {},
         token: string
     ): Promise<Response> {
         const response: Response = await this.doCRUDObject(
@@ -437,13 +432,13 @@ export default class PTRESTfulAPIClient {
      * 全文検索（SearchEstraierプラグイン）
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,unknown>} params パラメーター
+     * @param {Record<string,string|number>} params パラメーター
      * @returns {Promise<Response>} レスポンス
      */
     async searchObjects(
         model: string,
         workspaceId = 0,
-        params: Record<string,unknown> = {}
+        params: Record<string,string|number> = {}
     ): Promise<Response> {
         const response: Response = await this.runFetch(
             `/${model}/search`,
