@@ -7,7 +7,6 @@ type RequestMethods = 'get' | 'post' | 'put' | 'delete' | 'head' | 'options';
  * @class PTRESTfulAPIClient
  * @exports module:PTRESTfulAPIClient
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default class PTRESTfulAPIClient {
     #basePath: string;
 
