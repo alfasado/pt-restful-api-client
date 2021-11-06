@@ -175,7 +175,7 @@ export default class PTRESTfulAPIClient {
         model: string,
         id: number | string | null,
         workspaceId = 0,
-        token: string,
+        token: string | null = null,
         params: Record<string,string|number> = {},
         data: Record<string,unknown> = {},
         method: RequestMethods | null = null
@@ -254,7 +254,7 @@ export default class PTRESTfulAPIClient {
         id: number | string | null,
         workspaceId = 0,
         params: Record<string,string|number> = {},
-        token: string
+        token: string | null = null
     ): Promise<Response> {
         const response: Response = await this.doCRUDObject(
             'get',
