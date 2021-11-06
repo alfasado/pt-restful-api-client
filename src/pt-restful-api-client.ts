@@ -8,7 +8,7 @@ type RequestMethods = 'get' | 'post' | 'put' | 'delete' | 'head' | 'options';
  * @exports module:PTRESTfulAPIClient
  */
 export default class PTRESTfulAPIClient {
-    #basePath: string;
+    basePath: string;
 
     /**
      * コンストラクタ
@@ -21,7 +21,7 @@ export default class PTRESTfulAPIClient {
         } else if (isNaN(apiVersion) || apiVersion === 0) {
             throw 'Paramater `apiVersion` is required.';
         }
-        this.#basePath = `${apiPath}/v${apiVersion}`;
+        this.basePath = `${apiPath}/v${apiVersion}`;
     }
 
     // GETメソッド以外で送信
@@ -103,9 +103,9 @@ export default class PTRESTfulAPIClient {
         let response: Response;
 
         if (workspaceId === null) {
-            url = `${this.#basePath}${endpoint}`;
+            url = `${this.basePath}${endpoint}`;
         } else {
-            url = `${this.#basePath}/${workspaceId}${endpoint}`;
+            url = `${this.basePath}/${workspaceId}${endpoint}`;
         }
 
         if (method === 'get') {
