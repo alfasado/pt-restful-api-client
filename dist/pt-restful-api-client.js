@@ -10,32 +10,19 @@
 })(this, function() {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ({
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it uses a non-standard name for the exports (exports).
+(() => {
+var exports = __webpack_exports__;
+var __webpack_unused_export__;
 
-/***/ 314:
-/***/ (function(__unused_webpack_module, exports) {
-
-
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _PTRESTfulAPIClient_basePath;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
+__webpack_unused_export__ = ({ value: true });
 /**
  * PTRESTfulAPIClientクラス
  *
  * @class PTRESTfulAPIClient
  * @exports module:PTRESTfulAPIClient
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 class PTRESTfulAPIClient {
     /**
      * コンストラクタ
@@ -43,14 +30,13 @@ class PTRESTfulAPIClient {
      * @param {string} apiVersion APIバージョン（2020年9月15日現在は 1 ）
      */
     constructor(apiPath, apiVersion) {
-        _PTRESTfulAPIClient_basePath.set(this, void 0);
         if (!apiPath) {
             throw 'Paramater `apiPath` is required.';
         }
         else if (isNaN(apiVersion) || apiVersion === 0) {
             throw 'Paramater `apiVersion` is required.';
         }
-        __classPrivateFieldSet(this, _PTRESTfulAPIClient_basePath, `${apiPath}/v${apiVersion}`, "f");
+        this.basePath = `${apiPath}/v${apiVersion}`;
     }
     // GETメソッド以外で送信
     async postData(url, data = {}, token = null, method = 'post') {
@@ -99,7 +85,7 @@ class PTRESTfulAPIClient {
      * @param {string} endpoint エンドポイントのパス
      * @param {string} method リクエストメソッド
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,any>} params パラメーター
+     * @param {Record<string,string|number>} params パラメーター
      * @param {Record<string,unknown>} data リクエストボディ
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
@@ -108,10 +94,10 @@ class PTRESTfulAPIClient {
         let url;
         let response;
         if (workspaceId === null) {
-            url = `${__classPrivateFieldGet(this, _PTRESTfulAPIClient_basePath, "f")}${endpoint}`;
+            url = `${this.basePath}${endpoint}`;
         }
         else {
-            url = `${__classPrivateFieldGet(this, _PTRESTfulAPIClient_basePath, "f")}/${workspaceId}${endpoint}`;
+            url = `${this.basePath}/${workspaceId}${endpoint}`;
         }
         if (method === 'get') {
             response = await this.getData(url, params, token);
@@ -147,7 +133,7 @@ class PTRESTfulAPIClient {
      * オブジェクト一覧の取得
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,any>} params パラメーター
+     * @param {Record<string,string|number>} params パラメーター
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
@@ -159,7 +145,7 @@ class PTRESTfulAPIClient {
         return response;
     }
     // オブジェクトのCRUDの実現
-    async doCRUDObject(action, model, id, workspaceId = 0, token, params = {}, data = {}, method = null) {
+    async doCRUDObject(action, model, id, workspaceId = 0, token = null, params = {}, data = {}, method = null) {
         if (!model) {
             throw 'Paramater `model` is required.';
         }
@@ -204,11 +190,11 @@ class PTRESTfulAPIClient {
      * @param {string} model モデル
      * @param {number | string | null} id オブジェクトID（またはプライマリカラムの値）
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,any>} params パラメーター
+     * @param {Record<string,string|number>} params パラメーター
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
-    async getObject(model, id, workspaceId = 0, params = {}, token) {
+    async getObject(model, id, workspaceId = 0, params = {}, token = null) {
         const response = await this.doCRUDObject('get', model, id, workspaceId, token, params);
         return response;
     }
@@ -306,7 +292,7 @@ class PTRESTfulAPIClient {
      * 全文検索（SearchEstraierプラグイン）
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,unknown>} params パラメーター
+     * @param {Record<string,string|number>} params パラメーター
      * @returns {Promise<Response>} レスポンス
      */
     async searchObjects(model, workspaceId = 0, params = {}) {
@@ -315,21 +301,10 @@ class PTRESTfulAPIClient {
     }
 }
 exports["default"] = PTRESTfulAPIClient;
-_PTRESTfulAPIClient_basePath = new WeakMap();
 
+})();
 
-/***/ })
-
-/******/ 	});
-/************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__[314](0, __webpack_exports__);
-/******/ 	__webpack_exports__ = __webpack_exports__["default"];
-/******/ 	
+__webpack_exports__ = __webpack_exports__["default"];
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;
