@@ -16,6 +16,12 @@ Node環境の場合は`dist/pt-restful-api-client.js`をダウンロードし、
 import PTRESTfulAPIClient from './pt-restful-api-client';
 ```
 
+`npm`コマンドでもインスール可能です。
+
+```
+npm i alfasado/pt-restful-api-client#main
+```
+
 ### 初期化
 
 APIディレクトリ（例：`/powercmsx/api`）までのパスとAPIバージョン（現在は`1`のみ）を指定します。
