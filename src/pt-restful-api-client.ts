@@ -102,7 +102,9 @@ export default class PTRESTfulAPIClient {
         let url: string;
         let response: Response;
 
-        if (workspaceId === null) {
+        if (workspaceId === -1) {
+            url = endpoint;
+        } else if (workspaceId === null) {
             url = `${this.basePath}${endpoint}`;
         } else {
             url = `${this.basePath}/${workspaceId}${endpoint}`;

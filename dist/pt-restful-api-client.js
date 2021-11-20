@@ -93,7 +93,10 @@ class PTRESTfulAPIClient {
     async runFetch(endpoint, method, workspaceId = 0, params = {}, data = {}, token = null) {
         let url;
         let response;
-        if (workspaceId === null) {
+        if (workspaceId === -1) {
+            url = endpoint;
+        }
+        else if (workspaceId === null) {
             url = `${this.basePath}${endpoint}`;
         }
         else {
