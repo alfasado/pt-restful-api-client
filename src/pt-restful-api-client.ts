@@ -35,7 +35,7 @@ export default class PTRESTfulAPIClient {
             'Content-Type': 'application/json',
         };
         if (token) {
-            headers['access_token'] = token;
+            headers['X-PCMSX-Authorization'] = token;
         }
 
         const response: Response = await fetch(url, {
@@ -60,7 +60,7 @@ export default class PTRESTfulAPIClient {
         if (token) {
             setting = {
                 headers: {
-                    'access_token': token,
+                    'X-PCMSX-Authorization': token,
                 }
             };
         }
