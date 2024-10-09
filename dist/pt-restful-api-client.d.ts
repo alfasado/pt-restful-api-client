@@ -1,5 +1,6 @@
 /** @module PTRESTfulAPIClient */
-declare type RequestMethods = 'get' | 'post' | 'put' | 'delete' | 'head' | 'options';
+import { RequestMethods, PCMSXRequestCols, PCMSXRequestParams, PCMSXRequestBody } from './types';
+export * from './types';
 /**
  * PTRESTfulAPIClientクラス
  *
@@ -14,8 +15,8 @@ export default class PTRESTfulAPIClient {
      * @param {string} apiVersion APIバージョン（2020年9月15日現在は 1 ）
      */
     constructor(apiPath: string, apiVersion: number);
-    postData(url: string, data?: Record<string, unknown>, token?: string | null, method?: RequestMethods): Promise<Response>;
-    getData(url: string, params?: Record<string, string | number>, token?: string | null): Promise<Response>;
+    postData(url: string, data?: PCMSXRequestBody, token?: string | null, method?: RequestMethods): Promise<Response>;
+    getData(url: string, params?: PCMSXRequestCols | PCMSXRequestParams, token?: string | null): Promise<Response>;
     /**
      * Fetch APIの呼び出し
      *
@@ -25,12 +26,12 @@ export default class PTRESTfulAPIClient {
      * @param {string} endpoint エンドポイントのパス
      * @param {string} method リクエストメソッド
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestParams} params パラメーター
+     * @param {RequestBody} data リクエストボディ
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
-    runFetch(endpoint: string, method: RequestMethods, workspaceId?: number | null, params?: Record<string, string | number>, data?: Record<string, unknown>, token?: string | null): Promise<Response>;
+    runFetch(endpoint: string, method: RequestMethods, workspaceId?: number | null, params?: PCMSXRequestCols | PCMSXRequestParams, data?: PCMSXRequestBody, token?: string | null): Promise<Response>;
     /**
      * ユーザー認証の実行
      * @param {string} name ユーザー名
@@ -43,42 +44,42 @@ export default class PTRESTfulAPIClient {
      * オブジェクト一覧の取得
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
+     * @param {RequestParams} params パラメーター
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
-    listObjects(model: string, workspaceId?: number, params?: Record<string, string | number>, token?: string | null): Promise<Response>;
-    doCRUDObject(action: string, model: string, id: number | string | null, workspaceId?: number, token?: string | null, params?: Record<string, string | number>, data?: Record<string, unknown>, method?: RequestMethods | null): Promise<Response>;
+    listObjects(model: string, workspaceId?: number, params?: PCMSXRequestParams, token?: string | null): Promise<Response>;
+    doCRUDObject(action: string, model: string, id: number | string | null, workspaceId?: number, token?: string | null, params?: PCMSXRequestCols | PCMSXRequestParams, data?: PCMSXRequestBody, method?: RequestMethods | null): Promise<Response>;
     /**
      * オブジェクトの作成
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
      * @param {string} token アクセストークン
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @returns {Promise<Response>} レスポンス
      */
-    createObject(model: string, workspaceId: number | undefined, token: string, data?: Record<string, unknown>): Promise<Response>;
+    createObject(model: string, workspaceId: number | undefined, token: string, data?: PCMSXRequestBody): Promise<Response>;
     /**
      * オブジェクトの取得
      * @param {string} model モデル
      * @param {number | string | null} id オブジェクトID（またはプライマリカラムの値）
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
+     * @param {RequestParams} params パラメーター
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
-    getObject(model: string, id: number | string | null, workspaceId?: number, params?: Record<string, string | number>, token?: string | null): Promise<Response>;
+    getObject(model: string, id: number | string | null, workspaceId?: number, params?: PCMSXRequestCols, token?: string | null): Promise<Response>;
     /**
      * オブジェクトの更新
      * @param {string} model モデル
      * @param {number} id オブジェクトID
      * @param {number} workspaceId ワークスペースID
      * @param {string} token アクセストークン
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @param {RequestMethods} method リクエストメソッド
      * @returns {Promise<Response>} レスポンス
      */
-    updateObject(model: string, id: number, workspaceId: number | undefined, token: string, data?: Record<string, unknown>, method?: RequestMethods): Promise<Response>;
+    updateObject(model: string, id: number, workspaceId: number | undefined, token: string, data?: PCMSXRequestBody, method?: RequestMethods): Promise<Response>;
     /**
      * オブジェクトの削除
      * @param {string} model モデル
@@ -98,7 +99,7 @@ export default class PTRESTfulAPIClient {
      * @returns {Promise<Response>} レスポンス
      */
     getScheme(model: string, token: string, workspaceId?: number, keys?: string | null): Promise<Response>;
-    postContact(action: string, formId: number, workspaceId?: number, data?: Record<string, unknown>): Promise<Response>;
+    postContact(action: string, formId: number, workspaceId?: number, data?: PCMSXRequestBody): Promise<Response>;
     /**
      * コンタクトのトークン取得
      * @param {number} formId フォームID
@@ -110,25 +111,24 @@ export default class PTRESTfulAPIClient {
      * コンタクトデータのバリデーション
      * @param {number} formId フォームID
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @returns {Promise<Response>} レスポンス
      */
-    confirmContact(formId: number, workspaceId?: number, data?: Record<string, unknown>): Promise<Response>;
+    confirmContact(formId: number, workspaceId?: number, data?: PCMSXRequestBody): Promise<Response>;
     /**
      * コンタクトデータの送信
      * @param {number} formId フォームID
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @returns {Promise<Response>} レスポンス
      */
-    submitContact(formId: number, workspaceId?: number, data?: Record<string, unknown>): Promise<Response>;
+    submitContact(formId: number, workspaceId?: number, data?: PCMSXRequestBody): Promise<Response>;
     /**
      * 全文検索（SearchEstraierプラグイン）
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
+     * @param {RequestParams} params パラメーター
      * @returns {Promise<Response>} レスポンス
      */
-    searchObjects(model: string, workspaceId?: number, params?: Record<string, string | number>): Promise<Response>;
+    searchObjects(model: string, workspaceId?: number, params?: PCMSXRequestParams): Promise<Response>;
 }
-export {};

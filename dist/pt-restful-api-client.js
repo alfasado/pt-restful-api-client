@@ -10,13 +10,24 @@
 })(this, function() {
 return /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it uses a non-standard name for the exports (exports).
-(() => {
-var exports = __webpack_exports__;
-var __webpack_unused_export__;
+/******/ 	var __webpack_modules__ = ({
 
-__webpack_unused_export__ = ({ value: true });
+/***/ 314:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+__exportStar(__webpack_require__(699), exports);
 /**
  * PTRESTfulAPIClientクラス
  *
@@ -85,8 +96,8 @@ class PTRESTfulAPIClient {
      * @param {string} endpoint エンドポイントのパス
      * @param {string} method リクエストメソッド
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestParams} params パラメーター
+     * @param {RequestBody} data リクエストボディ
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
@@ -136,7 +147,7 @@ class PTRESTfulAPIClient {
      * オブジェクト一覧の取得
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
+     * @param {RequestParams} params パラメーター
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
@@ -181,7 +192,7 @@ class PTRESTfulAPIClient {
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
      * @param {string} token アクセストークン
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @returns {Promise<Response>} レスポンス
      */
     async createObject(model, workspaceId = 0, token, data = {}) {
@@ -193,7 +204,7 @@ class PTRESTfulAPIClient {
      * @param {string} model モデル
      * @param {number | string | null} id オブジェクトID（またはプライマリカラムの値）
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
+     * @param {RequestParams} params パラメーター
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
@@ -207,7 +218,7 @@ class PTRESTfulAPIClient {
      * @param {number} id オブジェクトID
      * @param {number} workspaceId ワークスペースID
      * @param {string} token アクセストークン
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @param {RequestMethods} method リクエストメソッド
      * @returns {Promise<Response>} レスポンス
      */
@@ -273,7 +284,7 @@ class PTRESTfulAPIClient {
      * コンタクトデータのバリデーション
      * @param {number} formId フォームID
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @returns {Promise<Response>} レスポンス
      */
     async confirmContact(formId, workspaceId = 0, data = {}) {
@@ -284,7 +295,7 @@ class PTRESTfulAPIClient {
      * コンタクトデータの送信
      * @param {number} formId フォームID
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @returns {Promise<Response>} レスポンス
      */
     async submitContact(formId, workspaceId = 0, data = {}) {
@@ -295,7 +306,7 @@ class PTRESTfulAPIClient {
      * 全文検索（SearchEstraierプラグイン）
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
+     * @param {RequestParams} params パラメーター
      * @returns {Promise<Response>} レスポンス
      */
     async searchObjects(model, workspaceId = 0, params = {}) {
@@ -305,9 +316,52 @@ class PTRESTfulAPIClient {
 }
 exports["default"] = PTRESTfulAPIClient;
 
-})();
 
-__webpack_exports__ = __webpack_exports__["default"];
+/***/ }),
+
+/***/ 699:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__(314);
+/******/ 	__webpack_exports__ = __webpack_exports__["default"];
+/******/ 	
 /******/ 	return __webpack_exports__;
 /******/ })()
 ;

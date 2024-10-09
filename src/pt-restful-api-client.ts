@@ -1,5 +1,7 @@
 /** @module PTRESTfulAPIClient */
-type RequestMethods = 'get' | 'post' | 'put' | 'delete' | 'head' | 'options';
+import { RequestMethods, PCMSXRequestCols, PCMSXRequestParams, PCMSXRequestBody } from './types';
+
+export * from './types';
 
 /**
  * PTRESTfulAPIClientクラス
@@ -27,11 +29,11 @@ export default class PTRESTfulAPIClient {
     // GETメソッド以外で送信
     async postData(
         url: string,
-        data: Record<string,unknown> = {},
+        data: PCMSXRequestBody = {},
         token: string | null = null,
         method: RequestMethods = 'post'
     ): Promise<Response> {
-        const headers: Record<string,string> = {
+        const headers: HeadersInit = {
             'Content-Type': 'application/json',
         };
         if (token) {
@@ -53,10 +55,10 @@ export default class PTRESTfulAPIClient {
     // GETメソッドで取得
     async getData(
         url: string,
-        params: Record<string,string|number> = {},
+        params: PCMSXRequestCols | PCMSXRequestParams = {},
         token: string | null = null
     ): Promise<Response> {
-        let setting: Record<string,unknown> = {};
+        let setting: PCMSXRequestBody = {};
         if (token) {
             setting = {
                 headers: {
@@ -86,8 +88,8 @@ export default class PTRESTfulAPIClient {
      * @param {string} endpoint エンドポイントのパス
      * @param {string} method リクエストメソッド
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestParams} params パラメーター
+     * @param {RequestBody} data リクエストボディ
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
@@ -95,8 +97,8 @@ export default class PTRESTfulAPIClient {
         endpoint: string,
         method: RequestMethods,
         workspaceId: number | null = 0,
-        params: Record<string,string|number> = {},
-        data: Record<string,unknown> = {},
+        params: PCMSXRequestCols | PCMSXRequestParams = {},
+        data: PCMSXRequestBody = {},
         token: string | null = null
     ): Promise<Response> {
         let url: string;
@@ -133,7 +135,7 @@ export default class PTRESTfulAPIClient {
             throw 'Paramater `password` is required.';
         }
 
-        const data: Record<string,unknown> = {
+        const data: PCMSXRequestBody = {
             name: name,
             password: password,
             remember: remember ? 1 : 0,
@@ -146,14 +148,14 @@ export default class PTRESTfulAPIClient {
      * オブジェクト一覧の取得
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
+     * @param {RequestParams} params パラメーター
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
     async listObjects(
         model: string,
         workspaceId = 0,
-        params: Record<string,string|number> = {},
+        params: PCMSXRequestParams = {},
         token: string | null = null
     ): Promise<Response> {
         if (!model) {
@@ -178,8 +180,8 @@ export default class PTRESTfulAPIClient {
         id: number | string | null,
         workspaceId = 0,
         token: string | null = null,
-        params: Record<string,string|number> = {},
-        data: Record<string,unknown> = {},
+        params: PCMSXRequestCols | PCMSXRequestParams = {},
+        data: PCMSXRequestBody = {},
         method: RequestMethods | null = null
     ): Promise<Response> {
         if (!model) {
@@ -221,14 +223,14 @@ export default class PTRESTfulAPIClient {
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
      * @param {string} token アクセストークン
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @returns {Promise<Response>} レスポンス
      */
     async createObject(
         model: string,
         workspaceId = 0,
         token: string,
-        data: Record<string,unknown> = {}
+        data: PCMSXRequestBody = {}
     ): Promise<Response> {
         const response: Response = await this.doCRUDObject(
             'insert',
@@ -247,7 +249,7 @@ export default class PTRESTfulAPIClient {
      * @param {string} model モデル
      * @param {number | string | null} id オブジェクトID（またはプライマリカラムの値）
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
+     * @param {RequestParams} params パラメーター
      * @param {string} token アクセストークン
      * @returns {Promise<Response>} レスポンス
      */
@@ -255,7 +257,7 @@ export default class PTRESTfulAPIClient {
         model: string,
         id: number | string | null,
         workspaceId = 0,
-        params: Record<string,string|number> = {},
+        params: PCMSXRequestCols = {},
         token: string | null = null
     ): Promise<Response> {
         const response: Response = await this.doCRUDObject(
@@ -275,7 +277,7 @@ export default class PTRESTfulAPIClient {
      * @param {number} id オブジェクトID
      * @param {number} workspaceId ワークスペースID
      * @param {string} token アクセストークン
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @param {RequestMethods} method リクエストメソッド
      * @returns {Promise<Response>} レスポンス
      */
@@ -284,7 +286,7 @@ export default class PTRESTfulAPIClient {
         id: number,
         workspaceId = 0,
         token: string,
-        data: Record<string,unknown> = {},
+        data: PCMSXRequestBody = {},
         method: RequestMethods = 'put'
     ): Promise<Response> {
         const response: Response = await this.doCRUDObject(
@@ -349,7 +351,7 @@ export default class PTRESTfulAPIClient {
             throw 'Paramater `token` is required.';
         }
 
-        let params: Record<string,string> = {};
+        let params: PCMSXRequestParams = {};
         if (keys) {
             params = {
                 keys: keys,
@@ -371,7 +373,7 @@ export default class PTRESTfulAPIClient {
         action: string,
         formId: number,
         workspaceId = 0,
-        data: Record<string,unknown> = {}
+        data: PCMSXRequestBody = {}
     ): Promise<Response> {
         if (!formId) {
             throw 'Paramater `formId` is required.';
@@ -402,13 +404,13 @@ export default class PTRESTfulAPIClient {
      * コンタクトデータのバリデーション
      * @param {number} formId フォームID
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @returns {Promise<Response>} レスポンス
      */
     async confirmContact(
         formId: number,
         workspaceId = 0,
-        data: Record<string,unknown> = {}
+        data: PCMSXRequestBody = {}
     ): Promise<Response> {
         const response: Response = await this.postContact('confirm', formId, workspaceId, data);
         return response;
@@ -418,13 +420,13 @@ export default class PTRESTfulAPIClient {
      * コンタクトデータの送信
      * @param {number} formId フォームID
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,unknown>} data リクエストボディ
+     * @param {RequestBody} data リクエストボディ
      * @returns {Promise<Response>} レスポンス
      */
     async submitContact(
         formId: number,
         workspaceId = 0,
-        data: Record<string,unknown> = {}
+        data: PCMSXRequestBody = {}
     ): Promise<Response> {
         const response: Response = await this.postContact('submit', formId, workspaceId, data);
         return response;
@@ -434,13 +436,13 @@ export default class PTRESTfulAPIClient {
      * 全文検索（SearchEstraierプラグイン）
      * @param {string} model モデル
      * @param {number} workspaceId ワークスペースID
-     * @param {Record<string,string|number>} params パラメーター
+     * @param {RequestParams} params パラメーター
      * @returns {Promise<Response>} レスポンス
      */
     async searchObjects(
         model: string,
         workspaceId = 0,
-        params: Record<string,string|number> = {}
+        params: PCMSXRequestParams = {}
     ): Promise<Response> {
         const response: Response = await this.runFetch(
             `/${model}/search`,
