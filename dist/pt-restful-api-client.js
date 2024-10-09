@@ -42,10 +42,10 @@ class PTRESTfulAPIClient {
      */
     constructor(apiPath, apiVersion) {
         if (!apiPath) {
-            throw 'Paramater `apiPath` is required.';
+            throw 'Parameter `apiPath` is required.';
         }
         else if (isNaN(apiVersion) || apiVersion === 0) {
-            throw 'Paramater `apiVersion` is required.';
+            throw 'Parameter `apiVersion` is required.';
         }
         this.basePath = `${apiPath}/v${apiVersion}`;
     }
@@ -130,10 +130,10 @@ class PTRESTfulAPIClient {
      */
     async authentication(name, password, remember = false) {
         if (!name) {
-            throw 'Paramater `name` is required.';
+            throw 'Parameter `name` is required.';
         }
         else if (!password) {
-            throw 'Paramater `password` is required.';
+            throw 'Parameter `password` is required.';
         }
         const data = {
             name: name,
@@ -153,7 +153,7 @@ class PTRESTfulAPIClient {
      */
     async listObjects(model, workspaceId = 0, params = {}, token = null) {
         if (!model) {
-            throw 'Paramater `model` is required.';
+            throw 'Parameter `model` is required.';
         }
         const response = await this.runFetch(`/${model}/list`, 'get', workspaceId, params, {}, token);
         return response;
@@ -161,7 +161,7 @@ class PTRESTfulAPIClient {
     // オブジェクトのCRUDの実現
     async doCRUDObject(action, model, id, workspaceId = 0, token = null, params = {}, data = {}, method = null) {
         if (!model) {
-            throw 'Paramater `model` is required.';
+            throw 'Parameter `model` is required.';
         }
         let endpoint;
         if (action === 'insert' || (action === 'get' && !id)) {
@@ -174,7 +174,7 @@ class PTRESTfulAPIClient {
             endpoint = `/${model}/${action}/${id}`;
         }
         else {
-            throw 'Paramater `id` is required.';
+            throw 'Parameter `id` is required.';
         }
         if (!method) {
             if (action === 'get') {
@@ -249,10 +249,10 @@ class PTRESTfulAPIClient {
      */
     async getScheme(model, token, workspaceId = 0, keys = null) {
         if (!model) {
-            throw 'Paramater `model` is required.';
+            throw 'Parameter `model` is required.';
         }
         else if (!token) {
-            throw 'Paramater `token` is required.';
+            throw 'Parameter `token` is required.';
         }
         let params = {};
         if (keys) {
@@ -265,7 +265,7 @@ class PTRESTfulAPIClient {
     }
     async postContact(action, formId, workspaceId = 0, data = {}) {
         if (!formId) {
-            throw 'Paramater `formId` is required.';
+            throw 'Parameter `formId` is required.';
         }
         const response = await this.runFetch(`/contact/${action}/${formId}`, 'post', workspaceId, {}, data);
         return response;

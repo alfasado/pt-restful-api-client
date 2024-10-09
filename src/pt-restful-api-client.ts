@@ -19,9 +19,9 @@ export default class PTRESTfulAPIClient {
      */
      constructor(apiPath: string, apiVersion: number) {
         if (!apiPath) {
-            throw 'Paramater `apiPath` is required.';
+            throw 'Parameter `apiPath` is required.';
         } else if (isNaN(apiVersion) || apiVersion === 0) {
-            throw 'Paramater `apiVersion` is required.';
+            throw 'Parameter `apiVersion` is required.';
         }
         this.basePath = `${apiPath}/v${apiVersion}`;
     }
@@ -130,9 +130,9 @@ export default class PTRESTfulAPIClient {
      */
     async authentication(name: string, password: string, remember = false): Promise<Response> {
         if (!name) {
-            throw 'Paramater `name` is required.';
+            throw 'Parameter `name` is required.';
         } else if (!password) {
-            throw 'Paramater `password` is required.';
+            throw 'Parameter `password` is required.';
         }
 
         const data: PCMSXRequestBody = {
@@ -159,7 +159,7 @@ export default class PTRESTfulAPIClient {
         token: string | null = null
     ): Promise<Response> {
         if (!model) {
-            throw 'Paramater `model` is required.';
+            throw 'Parameter `model` is required.';
         }
 
         const response: Response = await this.runFetch(
@@ -185,7 +185,7 @@ export default class PTRESTfulAPIClient {
         method: RequestMethods | null = null
     ): Promise<Response> {
         if (!model) {
-            throw 'Paramater `model` is required.';
+            throw 'Parameter `model` is required.';
         }
 
         let endpoint: string;
@@ -197,7 +197,7 @@ export default class PTRESTfulAPIClient {
             }
             endpoint = `/${model}/${action}/${id}`;
         } else {
-            throw 'Paramater `id` is required.';
+            throw 'Parameter `id` is required.';
         }
 
         if (!method) {
@@ -346,9 +346,9 @@ export default class PTRESTfulAPIClient {
         keys: string | null = null
     ): Promise<Response> {
         if (!model) {
-            throw 'Paramater `model` is required.';
+            throw 'Parameter `model` is required.';
         } else if (!token) {
-            throw 'Paramater `token` is required.';
+            throw 'Parameter `token` is required.';
         }
 
         let params: PCMSXRequestParams = {};
@@ -376,7 +376,7 @@ export default class PTRESTfulAPIClient {
         data: PCMSXRequestBody = {}
     ): Promise<Response> {
         if (!formId) {
-            throw 'Paramater `formId` is required.';
+            throw 'Parameter `formId` is required.';
         }
 
         const response: Response = await this.runFetch(
