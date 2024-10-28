@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Script that make it easier to use the PowerCMS X RESTful API.",
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky install || true",
     "build": "run-s clean webpack terser",
     "webpack": "webpack",
     "clean": "rimraf ./dist",
