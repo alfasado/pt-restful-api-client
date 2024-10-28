@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Script that make it easier to use the PowerCMS X RESTful API.",
   "scripts": {
+    "prepare": "husky install",
     "build": "run-s clean webpack terser",
     "webpack": "webpack",
     "clean": "rimraf ./dist",
@@ -20,6 +21,7 @@
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
     "eslint": "^7.32.0",
+    "husky": "^7.0.0",
     "npm-run-all": "^4.1.5",
     "terser": "^5.8.0",
     "ts-loader": "^9.2.5",
